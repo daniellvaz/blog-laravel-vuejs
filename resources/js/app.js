@@ -1,5 +1,7 @@
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
+import PrimeVue from "primevue/config";
+import Lara from "../../presets/lara";
 
 createInertiaApp({
     resolve: (name) => {
@@ -8,6 +10,10 @@ createInertiaApp({
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
+            .use(PrimeVue, {
+                unstyled: true,
+                pt: Lara,
+            })
             .use(plugin)
             .mount(el);
     },

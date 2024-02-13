@@ -5,12 +5,17 @@
     <main>
         <p>{{ name }}</p>
 
-        <input type="text" v-model="name">
+        <InputText type="text" v-model="name" />
     </main>
 </template>
 
 <script>
+import InputText from 'primevue/inputtext'
+
 export default {
+    components: {
+        InputText
+    },
     data() {
         return {
             name: ''
