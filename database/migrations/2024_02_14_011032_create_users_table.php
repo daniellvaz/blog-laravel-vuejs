@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('registration')->unique();
-            $table->string('address');
-            $table->string('phone');
-            $table->boolean('status')->default(true);
+            $table->string('bio')->nullable();
+            $table->bigInteger('github_id')->unique();
+            $table->string('photo')->nullable()->default('https://ui-avatars.com/api/?name=BD&background=059669&color=fff');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('users');
     }
 };
