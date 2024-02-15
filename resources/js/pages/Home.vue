@@ -13,9 +13,10 @@ function filterByCategory(e) {
 
 <template>
     <Navbar />
-    <main class="w-full min-h-screen">
-        <section class="w-full max-w-[1120px] m-auto">
-            <div class="w-full mb-4 mt-4 flex gap-2 items-end justify-between">
+
+    <main class="w-full min-h-screen dark:bg-zinc-950">
+        <section class="w-full max-w-[1120px] m-auto py-4">
+            <div class="w-full mb-4 flex gap-2 items-end justify-between">
                 <InputText type="text" placeholder="Buscar por título" style="min-width: 276px;" />
                 <ul class="flex gap-2">
                     <li>

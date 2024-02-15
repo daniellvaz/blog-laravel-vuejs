@@ -13,4 +13,12 @@ class Web extends Controller
     {
         return  Inertia::render('Home');
     }
+
+    public function authentication(Request $request): Response
+    {
+        $params = $request->query();
+        $code = $params['code'];
+
+        return Inertia::render('Account', ['code' => $code]);
+    }
 }
