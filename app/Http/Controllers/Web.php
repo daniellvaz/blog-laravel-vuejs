@@ -8,6 +8,7 @@ use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 
 class Web extends Controller
@@ -16,9 +17,11 @@ class Web extends Controller
     {
         $userId = session()->get('BLOG_USER_ID');
         $user = User::find($userId);
+        $posts = Post::all();
 
         return  Inertia::render('Home', [
-            "user" => $user
+            "user" => $user,
+            "posts" => $posts
         ]);
     }
 
@@ -61,5 +64,20 @@ class Web extends Controller
         session()->flush();
 
         return redirect('/');
+    }
+
+    public function profile(): RedirectResponse | Response
+    {
+        if (!session()->has('BLOG_USER_ID')) {
+            return redirect('/');
+        }
+
+        $userId = session()->get('BLOG_USER_ID');
+        $user = User::find($userId);
+
+        return Inertia::render('Profile', [
+            "user"  => $user,
+            "posts" => $user->posts
+        ]);
     }
 }
