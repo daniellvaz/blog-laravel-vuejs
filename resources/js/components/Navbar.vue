@@ -28,7 +28,8 @@
                 },
                 {
                     label: 'Logout',
-                    icon: 'pi pi-sign-out'
+                    icon: 'pi pi-sign-out',
+                    url: '/logout'
                 }
             ]
         }

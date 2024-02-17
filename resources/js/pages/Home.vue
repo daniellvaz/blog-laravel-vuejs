@@ -36,6 +36,7 @@
                     </li>
                 </ul>
             </div>
+
             <div class="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(276px,1fr))]">
                 <Card>
                     <template #header>

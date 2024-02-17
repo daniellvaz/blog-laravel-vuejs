@@ -15,14 +15,14 @@ class Web extends Controller
     public function home(Request $request): Response
     {
         $userId = session()->get('BLOG_USER_ID');
-        [$user] = User::find($userId)->get();
+        $user = User::find($userId);
 
         return  Inertia::render('Home', [
             "user" => $user
         ]);
     }
 
-    public function authentication(Request $request): RedirectResponse
+    public function login(Request $request): RedirectResponse
     {
         $params = $request->query();
         $code = $params['code'];
@@ -52,6 +52,13 @@ class Web extends Controller
         ]);
 
         session()->put('BLOG_USER_ID', $result->id);
+
+        return redirect('/');
+    }
+
+    public function logout(): RedirectResponse
+    {
+        session()->flush();
 
         return redirect('/');
     }
