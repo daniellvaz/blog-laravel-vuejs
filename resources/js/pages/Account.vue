@@ -1,8 +1,8 @@
 <script setup>
-
-
 </script>
 <template>
-    <p>{{ code }}</p>
+    <main class="w-full h-screen">
+
+    </main>
 </template>
 

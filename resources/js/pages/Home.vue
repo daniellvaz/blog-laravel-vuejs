@@ -1,18 +1,22 @@
 <script setup>
-import Card from 'primevue/card'
-import InputText from 'primevue/inputtext'
+    import Card from 'primevue/card'
+    import InputText from 'primevue/inputtext'
 
-import Navbar from '../components/Navbar.vue';
-import Footer from '../components/Footer.vue'
+    import Navbar from '../components/Navbar.vue';
+    import Footer from '../components/Footer.vue'
 
-function filterByCategory(e) {
-    console.log(e.srcElement.dataset.category)
-}
+    const props = defineProps({
+        user: Object
+    })
+
+    function filterByCategory(e) {
+        console.log(e.srcElement.dataset.category)
+    }
 
 </script>
 
 <template>
-    <Navbar />
+    <Navbar :user="user" />
 
     <main class="w-full min-h-screen dark:bg-zinc-950">
         <section class="w-full max-w-[1120px] m-auto py-4">

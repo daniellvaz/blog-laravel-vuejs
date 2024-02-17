@@ -2,7 +2,6 @@ import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import PrimeVue from "primevue/config";
 import Lara from "../presets/lara";
-import VueAuthenticate from "vue-authenticate";
 
 createInertiaApp({
     resolve: (name) => {

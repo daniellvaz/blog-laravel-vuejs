@@ -1,11 +1,42 @@
 <script setup>
-    import Button from 'primevue/button'
+    import Menu from 'primevue/menu';
+    import Button from 'primevue/button';
+    import Avatar from 'primevue/avatar';
+    import Divider from 'primevue/divider';
+
+    import { ref } from "vue";
     import { authentication } from '../utils/authentication';
+
+    const props = defineProps({
+        user: Object
+    })
 
     const { redirect } = authentication({
         clientId: import.meta.env.VITE_GITHUB_CLIENT_ID,
         redirectUrl: import.meta.env.VITE_GITHUB_REDIRECT_URL,
     })
+
+    const menu = ref();
+    const items = ref([
+        {
+            label: 'Menu',
+            items: [
+            {
+                    label: 'Perfil',
+                    icon: 'pi pi-user',
+                    url: '/profile'
+                },
+                {
+                    label: 'Logout',
+                    icon: 'pi pi-sign-out'
+                }
+            ]
+        }
+    ]);
+
+    const toggle = (event) => {
+        menu.value.toggle(event);
+    };
 </script>
 
 <template>
@@ -29,10 +60,19 @@
         </div>
 
         <div class="flex gap-2 items-center">
-            <a class="h-full px-4 py-2 bg-emerald-500 rounded font-bold" :href="redirect()">
+            <a v-if="!user" class="h-full px-4 py-2 bg-emerald-500 rounded font-bold" :href="redirect()">
                 Entar com
                 <i class="pi pi-github"></i>
             </a>
+            <div v-else class="flex items-center mr-4">
+                <p class="text-zinc-50">{{ user.name }}</p>
+                <Divider layout="vertical" />
+                <Avatar :image="user.photo" :label="user.name.slice(0, 1)" class="mr-2" size="large" shape="circle" />
+                <button @click="toggle" class="text-zinc-50">
+                    <i class="pi pi-chevron-down"></i>
+                </button>
+                <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
+            </div>
             <Button icon="pi pi-discord" outlined />
         </div>
     </nav>
