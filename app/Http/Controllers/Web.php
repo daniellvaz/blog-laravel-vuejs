@@ -17,11 +17,46 @@ class Web extends Controller
     {
         $userId = session()->get('BLOG_USER_ID');
         $user = User::find($userId);
-        $posts = Post::all();
 
         return  Inertia::render('Home', [
+            "user" => $user
+        ]);
+    }
+
+    public function timeline(Request $request): Response
+    {
+        $userId = session()->get('BLOG_USER_ID');
+        $user = User::find($userId);
+        $posts = Post::all();
+
+        return Inertia::render('Timeline', [
             "user" => $user,
             "posts" => $posts
+        ]);
+    }
+
+    public function new(Request $request): Response
+    {
+        return Inertia::render('Post/New');
+    }
+
+    public function post(Request $request): Response
+    {
+        return Inertia::render('Post/Post');
+    }
+
+    public function profile(): RedirectResponse | Response
+    {
+        if (!session()->has('BLOG_USER_ID')) {
+            return redirect('/');
+        }
+
+        $userId = session()->get('BLOG_USER_ID');
+        $user = User::find($userId);
+
+        return Inertia::render('Profile/Index', [
+            "user"  => $user,
+            "posts" => $user->posts
         ]);
     }
 
@@ -64,20 +99,5 @@ class Web extends Controller
         session()->flush();
 
         return redirect('/');
-    }
-
-    public function profile(): RedirectResponse | Response
-    {
-        if (!session()->has('BLOG_USER_ID')) {
-            return redirect('/');
-        }
-
-        $userId = session()->get('BLOG_USER_ID');
-        $user = User::find($userId);
-
-        return Inertia::render('Profile', [
-            "user"  => $user,
-            "posts" => $user->posts
-        ]);
     }
 }
